@@ -58,8 +58,8 @@ $(".btn.random").click(()=>{
 })
 
 $(".btn.create").click(()=>{
-  console.log("Create cat");
-})
+  createKitty();
+});
 
 
 function makeDefaultCat(){
@@ -84,7 +84,7 @@ function getDna(){
   dna += $('#dnaeyeshape').html()
   dna += $('#dnamouthshape').html()
   dna += $('#dnaearshape').html()
-  dna += $('#dnadearcolor').html()
+  dna += $('#dnaearcolor').html()
   dna += $('#dnaanimation').html()
   dna += $('#dnaspecial').html()
 
