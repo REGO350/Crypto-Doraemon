@@ -98,6 +98,15 @@ contract Doracontract is IERC721, Ownable {
     owner = tokenToOwner[_tokenId];
   }
 
+  function breed(uint256 _dadId, uint256 _mumId) public returns (uint256){
+    require(_owns(msg.sender, _dadId) && _owns(msg.sender, _mumId), "You are not the owner of this token");
+    Doraemon storage dad = allTokens[_dadId];
+    Doraemon storage mum = allTokens[_mumId];
+    uint256 newDna = _mixDna(dad.genes, mum.genes);
+    uint256 newGen = (dad.generation + mum.generation) / 2 + 1;
+    return _createDoraemon(_dadId, _mumId, newGen, newDna, msg.sender);
+  }
+
   function balanceOf(address _owner) external view override returns(uint256){
     return ownerToBalance[_owner];
   }
@@ -121,7 +130,6 @@ contract Doracontract is IERC721, Ownable {
   }
 
   function approve(address _approved, uint256 _tokenId) external override{
-    // require(_owns(msg.sender, _tokenId) || operatorApprovals[msg.sender][_approved], "ERC721: You are not the owner of this token");
     require(_owns(msg.sender, _tokenId), "ERC721: You are not the owner of this token");
     _approve(msg.sender, _approved, _tokenId);
   }
@@ -210,5 +218,15 @@ contract Doracontract is IERC721, Ownable {
       "ERC721: You don't have the permission to transfer token"
     );
     return true;
+  }
+
+  function _mixDna(uint256 _dadDna, uint256 _mumDna) internal returns(uint256){
+    // 11 22 33 44 55 66 77 88
+    // 88 77 66 55 44 33 22 11
+    uint256 firstHalf = _dadDna / 100000000;
+    uint256 secondHalf = _mumDna % 100000000;
+
+    uint256 newDna = firstHalf * 100000000 + secondHalf;
+    return newDna;
   }
 }
