@@ -220,13 +220,11 @@ contract Doracontract is IERC721, Ownable {
     return true;
   }
 
-  function _mixDna(uint256 _dadDna, uint256 _mumDna) internal returns(uint256){
-    // 11 22 33 44 55 66 77 88
-    // 88 77 66 55 44 33 22 11
-    uint256 firstHalf = _dadDna / 100000000;
-    uint256 secondHalf = _mumDna % 100000000;
+  function _mixDna(uint256 _dadDna, uint256 _mumDna) internal pure returns(uint256){
+    uint256 firstHalf = _dadDna / 10000000;
+    uint256 secondHalf = _mumDna % 10000000;
 
-    uint256 newDna = firstHalf * 100000000 + secondHalf;
+    uint256 newDna = firstHalf * 10000000 + secondHalf;
     return newDna;
   }
 }
