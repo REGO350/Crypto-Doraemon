@@ -34,19 +34,21 @@ contract Doracontract is IERC721, Ownable {
     uint16 generation;
   }
 
-  //Array with all token ids (index==>token id)
+  //Array of all tokens (index => token) (index, token ID: position of allTokens array)
   Doraemon[] private allTokens;
-  //Mapping owner address to token count
-  mapping (address => uint256) private ownerToBalance;
-  //Mapping from token ID to owner address
-  mapping (uint256 => address) private tokenToOwner;
-  //Give right to transfer (token ID ==> approved address)
+  //Token ID to owner address
+  mapping (uint256 => address) private tokenOwner;
+  //Owner to list of owned token IDs (addr => index)
+  mapping(address => uint256[]) private ownedTokens;
+  //Give right to transfer (token ID => approved address)
   mapping (uint256 => address) public tokenIndexToApproved;
   //Give operator (myAddr => operatorAddr => true/false)
   mapping (address => mapping(address => bool)) private operatorApprovals;
 
   //Counts created gen 0 doraemons
   uint16 public gen0Counter; 
+
+
 
   function supportsInterface(bytes4 _interfaceId) external pure returns (bool) {
     return (_interfaceId == _INTERFACE_ID_ERC165 || _interfaceId == _INTERFACE_ID_ERC721);
@@ -95,7 +97,11 @@ contract Doracontract is IERC721, Ownable {
     mumId = allTokens[_tokenId].mumId;
     dadId = allTokens[_tokenId].dadId;
     generation = allTokens[_tokenId].generation;
-    owner = tokenToOwner[_tokenId];
+    owner = tokenOwner[_tokenId];
+  }
+
+  function tokensOfOwner(address _owner) external view returns(uint256[] memory){
+    return ownedTokens[_owner];
   }
 
   function breed(uint256 _dadId, uint256 _mumId) public returns (uint256){
@@ -107,8 +113,8 @@ contract Doracontract is IERC721, Ownable {
     return _createDoraemon(_dadId, _mumId, newGen, newDna, msg.sender);
   }
 
-  function balanceOf(address _owner) external view override returns(uint256){
-    return ownerToBalance[_owner];
+  function balanceOf(address _owner) public view override returns(uint256){
+    return ownedTokens[_owner].length;
   }
 
   function totalSupply() external view override returns(uint256){
@@ -124,7 +130,7 @@ contract Doracontract is IERC721, Ownable {
   } 
 
   function ownerOf(uint256 _tokenId) public view override returns(address){
-    address owner = tokenToOwner[_tokenId];
+    address owner = tokenOwner[_tokenId];
     require(owner != address(0), "ERC721: owner query for nonexistent token");
     return owner;
   }
@@ -141,7 +147,7 @@ contract Doracontract is IERC721, Ownable {
   }
 
   function getApproved(uint256 _tokenId) external view override returns(address){
-    require(tokenToOwner[_tokenId] != address(0), "ERC721: Invalid token ID");
+    require(tokenOwner[_tokenId] != address(0), "ERC721: Invalid token ID");
     return tokenIndexToApproved[_tokenId];
   }
 
@@ -170,17 +176,28 @@ contract Doracontract is IERC721, Ownable {
   }
 
   function _transfer(address _from, address _to, uint256 _tokenId) internal{
-    ownerToBalance[_to]++;
     if(_from != address(0)){
-      ownerToBalance[_from]--;
+      _removeTokenFromOwnerEnumeration(_from, _tokenId); 
       delete tokenIndexToApproved[_tokenId];
     }
-    tokenToOwner[_tokenId] = _to;
+    _addtokenOwnerEnumeration(_to, _tokenId);
+    tokenOwner[_tokenId] = _to;
     emit Transfer(_from, _to, _tokenId);
   }
 
+  function _addtokenOwnerEnumeration(address _to, uint256 _tokenId) private {
+    uint256 length = balanceOf(_to);
+    ownedTokens[_to][length] = _tokenId;
+  }
+
+  function _removeTokenFromOwnerEnumeration(address _from, uint256 _tokenId) private {
+    uint256 lastTokenIndex = balanceOf(_from) - 1;
+    ownedTokens[_from][_tokenId] = ownedTokens[_from][lastTokenIndex];
+    ownedTokens[_from].pop();
+  }
+
   function _owns(address _claimant, uint256 _tokenId) internal view returns(bool){
-    return tokenToOwner[_tokenId] == _claimant;
+    return tokenOwner[_tokenId] == _claimant;
   }
 
   function _approve(address _owner, address _approved, uint256 _tokenId) internal {
@@ -210,7 +227,7 @@ contract Doracontract is IERC721, Ownable {
   }
 
   function _isApprovedOrOwner(address _spender, address _from, address _to, uint256 _tokenId) internal view returns(bool){
-    require(tokenToOwner[_tokenId] != address(0), "ERC721: Invalid token ID");
+    require(tokenOwner[_tokenId] != address(0), "ERC721: Invalid token ID");
     require(_to != address(0), "ERC721: Invalid address");
     require(_owns(_from, _tokenId), "ERC721: The sender does not own this token");
     require(
