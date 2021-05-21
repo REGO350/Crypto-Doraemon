@@ -1,3 +1,5 @@
+
+
 function appendCat(dna, id, gen){
   catBox(id, gen, dna);
   styleCat(formatDna(dna), id);
@@ -22,7 +24,7 @@ function formatDna(dnaStr){
 
 function catBox(id, gen, dna){
   let catDiv = 
-    `<div class="col-lg-4 pointer fit-content flipcard" id="${id}">
+    `<div class="col-lg-4 pointer fit-content catBox flipcard" id="${id}" onClick="boxClick(this.id)">
       <div class="featureBox catDiv">
         ${catBody()} 
         ${cattributes(gen, dna)}
@@ -120,13 +122,13 @@ function catBody(){
 function cattributes(gen, dna) {
   let Cattributes = 
     `
-    <div class="flipcard_back">
+    <div class="catInfo flipcard_back">
       <br>
       <h2>Doraemon Info</h2>
         <span><h4><b>　GEN: </b>${gen}</h4></span>
         <span><h4><b>　DNA: </b>${dna}</h4></span> 
       <br>
-      <h2>Cattribues</h2>
+      <h2>Cattributes</h2>
       <ul class="ml-5 cattributes>
         <li><span id=""></span></li>
         <li><span id="earName"></span> ears</li>

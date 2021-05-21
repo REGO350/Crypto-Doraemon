@@ -29,13 +29,21 @@
     </div>
 
     <div class="container p-3">
-      <button class="btn red-btn mb-3 mt-3" onclick="go_to('breed.html')">
+      <button class="btn red-btn mb-3 mt-3 breed" onclick="showBreedMenu()">
         Breed
       </button>
 
+      <div class="breed-menu">
+        <p>Select Two Doraemons</p>
+        <div class="buttons">
+          <button type="button" class="btn btn-danger cancel">Cancel</button>
+          <button type="button" class="btn btn-primary confirm">Confirm</button>
+        </div>
+      </div>
+
+
+
       <div class="row" id="catsDiv"></div>
-
-
     </div>
 
     <footer align="left">
@@ -53,5 +61,6 @@
   </body>
   <script src="assets/js/components.js"></script>
   <script src="assets/js/catalogue/showCats.js"></script>
+  <script src="assets/js/catalogue/breedMenu.js"></script>
   <script src="assets/js/catFactory/renderCat.js"></script>
 </html>

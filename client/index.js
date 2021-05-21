@@ -40,8 +40,7 @@ $(document).ready(() => {
 });
 
 //.send is required when state variables are modified
-function createDoraemon() {
-  dnaStr = getDna();
+function createDoraemon(dnaStr) {
   console.log(dnaStr);
   instance.methods.createDoraemonGen0(dnaStr).send({}, (error, txHash) => {
     if (error) {
@@ -65,6 +64,24 @@ function createDoraemon() {
       });
     }
   });
+}
+
+function breedCats(parentId){
+  instance.methods.breed(parentId[0], parentId[1]).send({}, (error, txHash) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(txHash);
+      instance.once("Birth", (error, event) => {
+        if (error) {
+          alert("Error");
+        } else {
+          console.log(JSON.stringify(event, null, "    "));
+          appendDoraemon(event.returnValues.doraemonId);
+        }
+      });
+    }
+  }); 
 }
 
 async function myDoraemon(){

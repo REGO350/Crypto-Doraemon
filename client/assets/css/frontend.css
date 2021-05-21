@@ -153,3 +153,11 @@ footer {
   font-weight: 600;
   letter-spacing: 1px;
 }
+
+.breed-menu {
+  display: none;
+}
+
+.btn.breed{
+  display: block;
+}

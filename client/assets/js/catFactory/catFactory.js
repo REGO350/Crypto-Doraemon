@@ -58,7 +58,7 @@ $(".btn.random").click(()=>{
 })
 
 $(".btn.create").click(()=>{
-  createDoraemon();
+  createDoraemon(getDna());
 });
 
 
