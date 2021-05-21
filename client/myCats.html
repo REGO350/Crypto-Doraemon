@@ -9,12 +9,16 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/lib/web3.min.js"></script>
     <script src="assets/js/abi.js"></script>
-
+    <script src="assets/js/lib/colors.js"></script>
+    <script src="index.js"></script>
     <!-- styling -->
     <link rel="stylesheet" href="assets/css/frontend.css" />
     <link rel="stylesheet" href="assets/css/mystyle.css" />
     <link rel="stylesheet" href="assets/css/colors.css" />
+    <link rel="stylesheet" href="assets/css/mystyle.css">
     <!-- doraemon -->
+    <link rel="stylesheet" href="assets/css/cats.css">
+    <link rel="stylesheet" href="assets/css/cattributes.css">
   </head>
   <body>
     <div id="menu"></div>
@@ -25,13 +29,11 @@
     </div>
 
     <div class="container p-3">
-      <!-- <button class="btn red-btn mb-3 mt-3" onclick="go_to('breed.html')">
+      <button class="btn red-btn mb-3 mt-3" onclick="go_to('breed.html')">
         Breed
-      </button> -->
+      </button>
 
       <div class="row" id="catsDiv"></div>
-
-
 
 
     </div>
@@ -44,12 +46,12 @@
       // when page load create the catalog
       $(document).ready(function () {
         setTimeout(() => {
-          myKitties()
+          myDoraemon();
         }, 1000)
       });
     </script>
-
-    <script src="assets/js/components.js"></script>
-    <script src="index.js"></script>
   </body>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/catalogue/showCats.js"></script>
+  <script src="assets/js/catFactory/renderCat.js"></script>
 </html>

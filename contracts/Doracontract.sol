@@ -48,13 +48,15 @@ contract Doracontract is IERC721, Ownable {
   //Counts created gen 0 doraemons
   uint16 public gen0Counter; 
 
-
+  constructor(){
+    _createDoraemon(0, 0, 0, 0, address(0)); //to fill index 0 spot
+  }
 
   function supportsInterface(bytes4 _interfaceId) external pure returns (bool) {
     return (_interfaceId == _INTERFACE_ID_ERC165 || _interfaceId == _INTERFACE_ID_ERC721);
   }
 
-  function createDoraemonGen0(uint256 _genes) public onlyOwner returns(uint256){
+  function createDoraemonGen0(uint256 _genes) public returns(uint256){
     require(gen0Counter < CREATION_LIMIT_GEN0, "Cannot create more gen 0 doraemon");
     gen0Counter++;
 
@@ -177,23 +179,14 @@ contract Doracontract is IERC721, Ownable {
 
   function _transfer(address _from, address _to, uint256 _tokenId) internal{
     if(_from != address(0)){
-      _removeTokenFromOwnerEnumeration(_from, _tokenId); 
+      uint256 lastTokenIndex = balanceOf(_from) - 1;
+      ownedTokens[_from][_tokenId] = ownedTokens[_from][lastTokenIndex];
+      ownedTokens[_from].pop();
       delete tokenIndexToApproved[_tokenId];
     }
-    _addtokenOwnerEnumeration(_to, _tokenId);
+    ownedTokens[_to].push(_tokenId);
     tokenOwner[_tokenId] = _to;
     emit Transfer(_from, _to, _tokenId);
-  }
-
-  function _addtokenOwnerEnumeration(address _to, uint256 _tokenId) private {
-    uint256 length = balanceOf(_to);
-    ownedTokens[_to][length] = _tokenId;
-  }
-
-  function _removeTokenFromOwnerEnumeration(address _from, uint256 _tokenId) private {
-    uint256 lastTokenIndex = balanceOf(_from) - 1;
-    ownedTokens[_from][_tokenId] = ownedTokens[_from][lastTokenIndex];
-    ownedTokens[_from].pop();
   }
 
   function _owns(address _claimant, uint256 _tokenId) internal view returns(bool){

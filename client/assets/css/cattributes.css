@@ -138,12 +138,12 @@
 
 @keyframes jumpCat {
   0% {
-    top: 75px;
+    top: 80px;
   }
   80% {
     top: 50px;
   }
   100% {
-    top: 75px;
+    top: 80px;
   }
 }

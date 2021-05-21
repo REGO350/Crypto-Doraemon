@@ -58,7 +58,7 @@ $(".btn.random").click(()=>{
 })
 
 $(".btn.create").click(()=>{
-  createKitty();
+  createDoraemon();
 });
 
 
@@ -92,75 +92,75 @@ function getDna(){
 }
 
 function renderCat(dna){
-  changeBodyColor(colors[dna.bodycolor],dna.bodycolor)
+  changeBodyColor(colors[dna.bodycolor],dna.bodycolor, 0)
   $('#bodycolor').val(dna.bodycolor)
 
-  changeFistColor(colors[dna.fistcolor],dna.fistcolor)
+  changeFistColor(colors[dna.fistcolor],dna.fistcolor, 0)
   $('#fistcolor').val(dna.fistcolor)
 
-  changePocketColor(colors[dna.pocketcolor],dna.pocketcolor)
+  changePocketColor(colors[dna.pocketcolor],dna.pocketcolor, 0)
   $('#pocketcolor').val(dna.pocketcolor)
 
-  changeRibbonColor(colors[dna.ribboncolor],dna.ribboncolor)
+  changeRibbonColor(colors[dna.ribboncolor],dna.ribboncolor, 0)
   $('#ribboncolor').val(dna.ribboncolor)
 
-  changeEyeShape(dna.eyeshape)
+  changeEyeShape(dna.eyeshape, 0)
   $('#eyeshape').val(dna.eyeshape)
 
-  changeMouthShape(dna.mouthshape)
+  changeMouthShape(dna.mouthshape, 0)
   $('#mouthshape').val(dna.mouthshape)
 
-  changeEarShape(dna.earshape)
+  changeEarShape(dna.earshape, 0)
   $('#earshape').val(dna.earshape)
 
-  changeEarColor(colors[dna.earcolor],dna.earcolor)
+  changeEarColor(colors[dna.earcolor],dna.earcolor, 0)
   $('#earcolor').val(dna.earcolor)
 
-  changeAnimation(dna.animation)
+  changeAnimation(dna.animation, 0)
   $('#animation').val(dna.animation)
 }
 
 $('#bodycolor').change(()=>{
   var colorVal = $('#bodycolor').val()
-  changeBodyColor(colors[colorVal],colorVal)
+  changeBodyColor(colors[colorVal],colorVal, 0)
 })
 
 $('#fistcolor').change(()=>{
   var colorVal = $('#fistcolor').val()
-  changeFistColor(colors[colorVal],colorVal)
+  changeFistColor(colors[colorVal],colorVal, 0)
 })
 
 $('#pocketcolor').change(()=>{
   var colorVal = $('#pocketcolor').val()
-  changePocketColor(colors[colorVal],colorVal)
+  changePocketColor(colors[colorVal],colorVal, 0)
 })
 
 $('#ribboncolor').change(()=>{
   var colorVal = $('#ribboncolor').val()
-  changeRibbonColor(colors[colorVal],colorVal)
+  changeRibbonColor(colors[colorVal],colorVal, 0)
 })
 
 $('#eyeshape').change(()=>{
   var shapeVal = parseInt($('#eyeshape').val())
-  changeEyeShape(shapeVal)
+  changeEyeShape(shapeVal, 0)
 })
 
 $('#mouthshape').change(()=>{
   var shapeVal = parseInt($('#mouthshape').val())
-  changeMouthShape(shapeVal)
+  changeMouthShape(shapeVal, 0)
 })
 
 $('#earshape').change(()=>{
   var shapeVal = parseInt($('#earshape').val())
-  changeEarShape(shapeVal)
+  changeEarShape(shapeVal, 0)
 })
 
 $('#earcolor').change(()=>{
   var colorVal = $('#earcolor').val()
-  changeEarColor(colors[colorVal],colorVal)
+  changeEarColor(colors[colorVal],colorVal, 0)
 })
 
 $('#animation').change(()=>{
   var animationVal = parseInt($('#animation').val())
-  changeAnimation(animationVal)
+  changeAnimation(animationVal, 0)
 })

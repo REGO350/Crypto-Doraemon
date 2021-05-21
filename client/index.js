@@ -5,7 +5,7 @@ var web3 = new Web3(Web3.givenProvider);
 var instance;
 var user;
 var loggedIn = false;
-var contractAddress = "0x03e5bF2b7c66f416d307631f8BcdCF3593DBF6dC";
+var contractAddress = "0x128b99A058A163712fb7F7247675bB0b88d8Db25";
 
 function start() {
   //ask user to interact with the dapp
@@ -20,11 +20,16 @@ function start() {
     //almost always accounts[0]
     user = accounts[0];
     menu();
+    console.log("login successful");
   });
 }
 
 $(document).ready(() => {
-  web3.eth.getAccounts(function (err, accounts) {
+  web3.eth.getAccounts((err, accounts) => {
+    instance = new web3.eth.Contract(abi, contractAddress, {
+      from: accounts[0],
+    });
+    user = accounts[0];
     if (accounts.length == 0) {
       loggedIn = false;
     } else {
@@ -35,7 +40,7 @@ $(document).ready(() => {
 });
 
 //.send is required when state variables are modified
-function createKitty() {
+function createDoraemon() {
   dnaStr = getDna();
   console.log(dnaStr);
   instance.methods.createDoraemonGen0(dnaStr).send({}, (error, txHash) => {
@@ -61,3 +66,19 @@ function createKitty() {
     }
   });
 }
+
+async function myDoraemon(){
+  let arrayId = await instance.methods.tokensOfOwner(user).call();
+  for(let i=0; i < arrayId.length; i++){
+    appendDoraemon(arrayId[i]);
+  }
+}
+
+async function appendDoraemon(id){
+  let doraemon = await instance.methods.getDoraemon(id).call();
+  // console.log(doraemon);
+  // console.log(id);
+  appendCat(doraemon.genes, id, doraemon.generation);
+}
+
+
