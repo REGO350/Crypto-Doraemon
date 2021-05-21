@@ -72,26 +72,50 @@ footer {
   background: #f8f8f8;
 }
 
-.featureBox {
-  border: 1px solid #009DE4;
-  border-radius: 10px;
-  background-color: #e2efff;
-  margin: 10px 5px;
-  transition: 0.8s ease-in-out;
-  box-shadow: 0px 1px 7px -2px #444444;
-  position: relative;
+.flipcard{
+  background-color: transparent;
   height: 400px;
+  margin-top: 50px;
+  perspective: 1000px;
   display: flex;
   justify-content: center;
 }
 
-.featureBox h4 {
-  font-weight: 600;
+.featureBox {
+  border: 1px solid #009DE4;
+  border-radius: 10px;
+  background-color: #e2efff;
+  transition: 0.8s ease-in-out;
+  box-shadow: 0px 1px 7px -2px #444444;
+  position: relative;
+  height: 100%;
+  width: 95%;
+  display: flex;
+  justify-content: center;
+
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
 }
 
-.featureBox:hover {
-  border: 1px solid #ffffff;
-  box-shadow: 0px 16px 35px 0px rgba(0, 0, 2, 0.08);
+.cat *{
+  pointer-events: none;
+}
+
+.flipcard:hover .featureBox {
+  transform: rotateY(180deg);
+}
+
+.flipcard_front, .flipcard_back {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flipcard_back{
+  transform: rotateY(180deg);
+}
+
+.featureBox h4 {
+  font-weight: 600;
 }
 
 .catDiv {

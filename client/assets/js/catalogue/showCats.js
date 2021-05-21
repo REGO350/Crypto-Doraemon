@@ -1,8 +1,6 @@
 function appendCat(dna, id, gen){
-  dna = formatDna(dna);
-  makeCat(id);
-  styleCat(dna, id);
-  let test = gen;
+  catBox(id, gen, dna);
+  styleCat(formatDna(dna), id);
 }
 
 function formatDna(dnaStr){
@@ -22,22 +20,20 @@ function formatDna(dnaStr){
   return formattedDna;
 }
 
-function makeCat(id){
+function catBox(id, gen, dna){
   let catDiv = 
-    `<div class="col-lg-4 pointer fit-content" id="catview ${id}">
+    `<div class="col-lg-4 pointer fit-content flipcard" id="${id}">
       <div class="featureBox catDiv">
-        ${catBody(id)}
+        ${catBody()} 
+        ${cattributes(gen, dna)}
       </div>
-      <div class="dnaDiv" id="catDNA ${id}">
-      </div>
-      ${cattributes(id)}
     </div>`
   $('#catsDiv').append(catDiv)
 }
 
-function catBody(id){
+function catBody(){
   let catbody = 
-    `<div class="cat" id="${id}">
+    `<div class="cat flipcard_front">
       <div class="cat__ears" >
         <div class="cat__ear left" >
           <div class="cat__ear_inside left" ></div>
@@ -121,13 +117,25 @@ function catBody(id){
   return catbody;
 }
 
-function cattributes(id) {
+function cattributes(gen, dna) {
   let Cattributes = 
-    `<ul class="ml-5 cattributes" id=${id}>
-      <li><span id="eyeName"></span> eyes</li>
-      <li><span id="decorationName"></span> decoration</li>
-      <li><span id="animationName"></span></li>
-    </ul>`
+    `
+    <div class="flipcard_back">
+      <br>
+      <h2>Doraemon Info</h2>
+        <span><h4><b>　GEN: </b>${gen}</h4></span>
+        <span><h4><b>　DNA: </b>${dna}</h4></span> 
+      <br>
+      <h2>Cattribues</h2>
+      <ul class="ml-5 cattributes>
+        <li><span id=""></span></li>
+        <li><span id="earName"></span> ears</li>
+        <li><span id="eyeName"></span> eyes</li>
+        <li><span id="mouthName"></span> </li>
+        <li><span id="animationName"></span> </li>
+      </ul>
+    </div>
+    `
   return Cattributes
 }
 

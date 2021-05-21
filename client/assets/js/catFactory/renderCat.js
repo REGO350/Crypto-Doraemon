@@ -29,31 +29,31 @@ function changeEyeShape(num, id) {
   switch (num) {
     case 1:
       eyeType1(id)
-      $('#eyeName').html('Basic')
+      $(`#${id}`).find('#eyeName').html('Basic')
       break
     case 2:
       eyeType2(id)
-      $('#eyeName').html('Down')
+      $(`#${id}`).find('#eyeName').html('Down')
       break
     case 3:
       eyeType3(id)
-      $('#eyeName').html('Up')
+      $(`#${id}`).find('#eyeName').html('Up')
       break
     case 4:
       eyeType4(id)
-      $('#eyeName').html('Close')
+      $(`#${id}`).find('#eyeName').html('Close')
       break
     case 5:
       eyeType5(id)
-      $('#eyeName').html('Wink')
+      $(`#${id}`).find('#eyeName').html('Wink')
       break
     case 6:
       eyeType6(id)
-      $('#eyeName').html('Confused')
+      $(`#${id}`).find('#eyeName').html('Confused')
       break
     case 7:
       eyeType7(id)
-      $('#eyeName').html('Tilted')
+      $(`#${id}`).find('#eyeName').html('Tilted')
       break
   }
 }
@@ -123,19 +123,19 @@ function changeMouthShape(num, id) {
   switch (num) {
     case 1:
       mouthType1(id)
-      $('#mouthName').html('Happy')
+      $(`#${id}`).find('#mouthName').html('Happy')
       break
     case 2:
       mouthType2(id)
-      $('#mouthName').html('Smile')
+      $(`#${id}`).find('#mouthName').html('Smile')
       break
     case 3:
       mouthType3(id)
-      $('#mouthName').html('Still')
+      $(`#${id}`).find('#mouthName').html('Still')
       break
     case 4:
       mouthType4(id)
-      $('#mouthName').html('Thinking')
+      $(`#${id}`).find('#mouthName').html('Thinking')
       break
   }
 }
@@ -191,27 +191,27 @@ function changeEarShape(num, id) {
   switch (num) {
     case 1:
       earType(0, 0, id)
-      $('#earName').html('"The Actual"')
+      $(`#${id}`).find('#earName').html('"The Actual"')
       break
     case 2:
       earType(200, 160, id);
-      $('#earName').html('Basic')
+      $(`#${id}`).find('#earName').html('Basic')
       break
     case 3:
       earType(180, 180, id);
-      $('#earName').html('Away')
+      $(`#${id}`).find('#earName').html('Away')
       break
     case 4:
       earType(150, 210, id);
-      $('#earName').html('Far Away')
+      $(`#${id}`).find('#earName').html('Far Away')
       break
     case 5:
       earType(220, 140, id);
-      $('#earName').html('Straight')
+      $(`#${id}`).find('#earName').html('Straight')
       break
     case 6:
       earType(240, 120, id);
-      $('#earName').html('Close')
+      $(`#${id}`).find('#earName').html('Close')
       break
   }
 }
@@ -237,19 +237,19 @@ function changeAnimation(num, id) {
   switch (num) {
     case 1:
       animateType1(id)
-      $('#animationName').html('Moving Bell')
+      $(`#${id}`).find('#animationName').html('Moving Bell')
       break
     case 2:
       animateType2(id)
-      $('#animationName').html('Wave')
+      $(`#${id}`).find('#animationName').html('Wave')
       break
     case 3:
       animateType3(id)
-      $('#animationName').html('Dance')
+      $(`#${id}`).find('#animationName').html('Dance')
       break
     case 4:
       animateType4(id)
-      $('#animationName').html('Jump!')
+      $(`#${id}`).find('#animationName').html('Jump!')
       break
   }
 }
@@ -258,7 +258,7 @@ function resetAnimation(id) {
   $(`#${id}`).find(".cat__bell").removeClass("movingBell");
   $(`#${id}`).find(".cat__arm").removeClass("movingArm");
   $(`#${id}`).find(".cat__foot").removeClass("movingFoot");
-  $(`#${id}.cat`).removeClass("jump");
+  $(`#${id}`).find(".cat").removeClass("jump");
 }
 
 function animateType1(id) {
@@ -279,7 +279,7 @@ function animateType3(id) {
 
 function animateType4(id) {
   resetAnimation(id);
-  $(`#${id}.cat`).addClass("jump");
+  $(`#${id}`).find(".cat").addClass("jump");
 }
 
 
