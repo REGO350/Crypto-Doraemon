@@ -5,7 +5,7 @@ var web3 = new Web3(Web3.givenProvider);
 var instance;
 var user;
 var loggedIn = false;
-var contractAddress = "0x128b99A058A163712fb7F7247675bB0b88d8Db25";
+var contractAddress = "0x9a9be27BC8831296b63032f9b5EE0b7b645Eb925";
 
 function start() {
   //ask user to interact with the dapp

@@ -158,6 +158,19 @@ footer {
   display: none;
 }
 
+.breed-menu > h3 {
+  text-align: center;
+}
+
+.breed-menu > .buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.breed-menu .btn {
+  margin: 5px 10px;
+}
+
 .btn.breed{
   display: block;
 }
