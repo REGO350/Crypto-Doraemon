@@ -230,11 +230,29 @@ contract Doracontract is IERC721, Ownable {
     return true;
   }
 
-  function _mixDna(uint256 _dadDna, uint256 _mumDna) internal pure returns(uint256){
-    uint256 firstHalf = _dadDna / 10000000;
-    uint256 secondHalf = _mumDna % 10000000;
-
-    uint256 newDna = firstHalf * 10000000 + secondHalf;
-    return newDna;
+  function _mixDna(uint256 _dadDna, uint256 _mumDna) internal view returns(uint256 newGene){
+    uint256[] memory geneArray = new uint256[](10);
+    uint8[10] memory digitControl = [100, 100, 100, 100, 10, 10, 10, 100, 10, 10]; 
+    uint16 random = uint16(uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 65536);
+    uint16 i;
+    uint16 index = 10;
+    for(i = 1; i <= 512; i = i * 2){
+      index = index - 1;
+      if(index == random % 10){
+        geneArray[index] = (_mumDna % digitControl[index] + _dadDna % digitControl[index]) / 2;
+      }else if(random & i != 0){
+        geneArray[index] = _mumDna % digitControl[index];
+      }else{
+        geneArray[index] = _dadDna % digitControl[index];
+      }
+      _mumDna /= digitControl[index];
+      _dadDna /= digitControl[index];
+    }
+    for(i = 0; i < 10; i++){
+      newGene += geneArray[i];
+      if(i != 9){
+        newGene *= digitControl[i+1];
+      }
+    }
   }
 }

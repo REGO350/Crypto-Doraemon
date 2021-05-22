@@ -54,6 +54,7 @@ $(".btn.random").click(()=>{
   $('#dnaearshape').html(randomDNA.earshape);
   $('#dnaearcolor').html(randomDNA.earcolor);
   $('#dnaanimation').html(randomDNA.animation);
+  $('#dnaspecial').html(randomDNA.lastNum);
   renderCat(randomDNA)
 })
 
@@ -71,7 +72,7 @@ function makeDefaultCat(){
   $('#dnamouthshape').html(defaultDNA.mouthshape);
   $('#dnaearshape').html(defaultDNA.earshape);
   $('#dnaearcolor').html(defaultDNA.earcolor);
-  $('#dnaanimation').html(defaultDNA.animation);
+  $('#dnaspecial').html(defaultDNA.lastNum);
   renderCat(defaultDNA)
 }
 
