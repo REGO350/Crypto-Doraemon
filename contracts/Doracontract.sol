@@ -52,6 +52,10 @@ contract Doracontract is IERC721, Ownable {
     _createDoraemon(0, 0, 0, 0, address(0)); //to fill index 0 spot
   }
 
+  function getContractAddress() external view onlyOwner returns(address){
+    return address(this);
+  }
+
   function supportsInterface(bytes4 _interfaceId) external pure returns (bool) {
     return (_interfaceId == _INTERFACE_ID_ERC165 || _interfaceId == _INTERFACE_ID_ERC721);
   }

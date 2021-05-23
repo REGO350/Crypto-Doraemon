@@ -23,7 +23,7 @@ function start() {
     console.log("login successful");
   });
 }
-
+ 
 $(document).ready(() => {
   web3.eth.getAccounts((err, accounts) => {
     instance = new web3.eth.Contract(abi, contractAddress, {
@@ -97,5 +97,3 @@ async function appendDoraemon(id){
   // console.log(id);
   appendCat(doraemon.genes, id, doraemon.generation);
 }
-
-
