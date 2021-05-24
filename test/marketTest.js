@@ -15,11 +15,10 @@ contract("Test", (accounts) => {
     DoraContractAddress    = await contract.getContractAddress({from: accounts[0]});
     DoraMarketplaceAddress = await market.getContractAddress({from: accounts[0]});
 
-    await market.setDoraContract(DoraContractAddress, {from: accounts[0]});
+    // await market.setDoraContract(DoraContractAddress, {from: accounts[0]});
     await contract.createDoraemonGen0(1234);
-    await contract.approve(DoraMarketplaceAddress, 1);
     await contract.createDoraemonGen0(4321);
-    await contract.approve(DoraMarketplaceAddress, 2);
+    await contract.setApprovalForAll(DoraMarketplaceAddress, true);
   });
 
   it("Set Offer check", async () => {

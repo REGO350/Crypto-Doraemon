@@ -1,5 +1,6 @@
-const Migrations = artifacts.require("DoraMarketplace");
+const DoraContract = artifacts.require("Doracontract");
+const DoraMarketplace = artifacts.require("DoraMarketplace");
 
 module.exports = function (deployer) {
-  deployer.deploy(Migrations);
+  deployer.deploy(DoraMarketplace, DoraContract.address);
 };

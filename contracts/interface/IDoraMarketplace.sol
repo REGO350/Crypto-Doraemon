@@ -1,9 +1,5 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
-import "./Doracontract.sol";
-import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
-
 /*
  * Market place to trade kitties (should **in theory** be used for any ERC721 token)
  * It needs an existing Kitty contract to interact with

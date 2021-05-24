@@ -5,8 +5,8 @@ pragma solidity ^0.8.0;
 // import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
 // import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 
-import "./IERC721.sol";
-import "./IERC721Receiver.sol";
+import "./interface/IERC721.sol";
+import "./interface/IERC721Receiver.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 contract Doracontract is IERC721, Ownable {
@@ -52,7 +52,7 @@ contract Doracontract is IERC721, Ownable {
     _createDoraemon(0, 0, 0, 0, address(0)); //to fill index 0 spot
   }
 
-  function getContractAddress() external view onlyOwner returns(address){
+  function getContractAddress() external view returns(address){
     return address(this);
   }
 
