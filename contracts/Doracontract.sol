@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// import "../node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol";
-// import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
-// import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
-
 import "./interface/IERC721.sol";
 import "./interface/IERC721Receiver.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
@@ -40,8 +36,10 @@ contract Doracontract is IERC721, Ownable {
   mapping (uint256 => address) private tokenOwner;
   //Owner to list of owned token IDs (addr => index)
   mapping(address => uint256[]) private ownedTokens;
+  //Token ID to index of the owner tokens list 
+  mapping(uint256 => uint256) private ownedTokensIndex;
   //Give right to transfer (token ID => approved address)
-  mapping (uint256 => address) public tokenIndexToApproved;
+  mapping (uint256 => address) private tokenIndexToApproved;
   //Give operator (myAddr => operatorAddr => true/false)
   mapping (address => mapping(address => bool)) private operatorApprovals;
 
@@ -177,19 +175,25 @@ contract Doracontract is IERC721, Ownable {
   }
 
   function transferFrom(address _from, address _to, uint256 _tokenId) external override {
-    require(_isApprovedOrOwner(msg.sender, _from, _to, _tokenId));
+    require(_isApprovedOrOwner(msg.sender, _from, _to, _tokenId), "ERC721: Is not approved or owner");
     _transfer(_from, _to, _tokenId);
   }
 
   function _transfer(address _from, address _to, uint256 _tokenId) internal{
     if(_from != address(0)){
       uint256 lastTokenIndex = balanceOf(_from) - 1;
-      ownedTokens[_from][_tokenId] = ownedTokens[_from][lastTokenIndex];
+      uint256 tokenIndex = ownedTokensIndex[_tokenId];
+      if(tokenIndex != lastTokenIndex){
+        uint256 lastTokenId = ownedTokens[_from][lastTokenIndex];
+        ownedTokens[_from][tokenIndex] = lastTokenId;
+        ownedTokensIndex[lastTokenId] = tokenIndex;
+      }
       ownedTokens[_from].pop();
       delete tokenIndexToApproved[_tokenId];
     }
     ownedTokens[_to].push(_tokenId);
-    tokenOwner[_tokenId] = _to;
+    ownedTokensIndex[_tokenId] = ownedTokens[_to].length - 1;
+    tokenOwner[_tokenId] = _to; 
     emit Transfer(_from, _to, _tokenId);
   }
 

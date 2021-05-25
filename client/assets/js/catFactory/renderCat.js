@@ -281,20 +281,3 @@ function animateType4(id) {
   resetAnimation(id);
   $(`#${id}`).find(".cat").addClass("jump");
 }
-
-
-
-//Random color
-// function getColor() {
-//   var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-//   return randomColor
-// }
-
-// function genColors(){
-//   var colors = []
-//   for(var i = 10; i < 99; i ++){
-//     var color = getColor()
-//     colors[i] = color
-//   }
-//   return colors
-// }

@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="assets/css/frontend.css" />
     <link rel="stylesheet" href="assets/css/mystyle.css" />
     <link rel="stylesheet" href="assets/css/colors.css" />
-    <link rel="stylesheet" href="assets/css/mystyle.css">
+    <link rel="stylesheet" href="assets/css/mystyle.css" />
     <!-- doraemon -->
-    <link rel="stylesheet" href="assets/css/cats.css">
-    <link rel="stylesheet" href="assets/css/cattributes.css">
+    <link rel="stylesheet" href="assets/css/cats.css" />
+    <link rel="stylesheet" href="assets/css/cattributes.css" />
   </head>
   <body>
     <div id="menu"></div>
@@ -29,19 +29,36 @@
     </div>
 
     <div class="container p-3">
-      <button class="btn red-btn mb-3 mt-3 breed" onclick="showBreedMenu()">
-        Breed
-      </button>
+      <div class="buttons menu">
+        <button type="button" class="btn btn-warning btn-lg breed" onclick="showBreedMenu()">
+          Breed
+        </button>
+        <button type="button" class="btn btn-success btn-lg buy" onclick="gotoCatalogue()">
+          Buy
+        </button>
+        <button type="button" class="btn btn-danger btn-lg sell" onclick="showSellMenu()">
+          Sell
+        </button>
+      </div>
 
       <div class="breed-menu">
-        <h3>Select Two Doraemons</h3>
+        <h3>Select two Doraemons</h3>
         <div class="buttons">
           <button type="button" class="btn btn-danger cancel">Cancel</button>
           <button type="button" class="btn btn-primary confirm">Confirm</button>
         </div>
       </div>
 
-
+      <div class="sell-menu">
+        <h3>Select Doraemon and enter price</h3>
+        <div class="buttons">
+          <button type="button" class="btn btn-danger cancel">Cancel</button>
+          <div class="form-group">
+            <input type="number" class="form-control" id="catPrice" placeholder="Price in ETH">
+          </div>
+          <button type="button" class="btn btn-primary confirm">Confirm</button>
+        </div>
+      </div>
 
       <div class="row" id="catsDiv"></div>
     </div>
@@ -55,12 +72,12 @@
       $(document).ready(function () {
         setTimeout(() => {
           myDoraemon();
-        }, 1000)
+        }, 1000);
       });
     </script>
   </body>
   <script src="assets/js/components.js"></script>
   <script src="assets/js/catalogue/showCats.js"></script>
-  <script src="assets/js/catalogue/breedMenu.js"></script>
+  <script src="assets/js/catalogue/breed-orderMenu.js"></script>
   <script src="assets/js/catFactory/renderCat.js"></script>
 </html>

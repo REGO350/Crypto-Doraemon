@@ -1,7 +1,10 @@
-
-
 function appendCat(dna, id, gen){
-  catBox(id, gen, dna);
+  catBox(id, gen, dna, false);
+  styleCat(formatDna(dna), id);
+}
+
+function appendCatMarket(dna, id, gen, isSeller, price){
+  catBox(id, gen, dna, true, isSeller, price);
   styleCat(formatDna(dna), id);
 }
 
@@ -22,15 +25,38 @@ function formatDna(dnaStr){
   return formattedDna;
 }
 
-function catBox(id, gen, dna){
+function catBox(id, gen, dna, isMarket, isSeller, price){
   let catDiv = 
     `<div class="col-lg-4 pointer fit-content catBox flipcard" id="${id}" onClick="boxClick(this.id)">
       <div class="featureBox catDiv">
         ${catBody()} 
-        ${cattributes(gen, dna)}
+        ${cattributes(gen, dna, id)}
       </div>
-    </div>`
-  $('#catsDiv').append(catDiv)
+      ${isMarket ? catOffer(isSeller, price, id) : ""}
+    </div>
+    `
+  $('#catsDiv').append(catDiv);
+  if(isMarket){
+    $(".catBox").css("margin-bottom", "30px");
+  }
+}
+
+function catOffer(isSeller, price, id){
+  let buttonDiv;
+  price = price.toString().substring(0, 7);
+  if(isSeller){
+    buttonDiv = `<button type="button" class="btn btn-danger cancel" id="${id}" onClick="cancelClick(this.id)">Cancel</button>`
+  }else{
+    buttonDiv = `<button type="button" class="btn btn-success buy" id="${id}" onClick="buyClick(this.id)">Purchase</button>`
+  }
+
+  let offerDiv = `
+    <div class="offerBox">
+      <div class="tag"><h5>Price: ${price} ETH</h5></div>
+      <div class="buttons">${buttonDiv}</div>
+    </div>
+  `
+  return offerDiv;
 }
 
 function catBody(){
@@ -119,7 +145,7 @@ function catBody(){
   return catbody;
 }
 
-function cattributes(gen, dna) {
+function cattributes(gen, dna, id) {
   let Cattributes = 
     `
     <div class="catInfo flipcard_back">
@@ -127,6 +153,7 @@ function cattributes(gen, dna) {
       <h2>Doraemon Info</h2>
         <span><h4><b>　GEN: </b>${gen}</h4></span>
         <span><h4><b>　DNA: </b>${dna}</h4></span> 
+        <span><h4><b>　ID : </b>${id}</h4></span> 
       <br>
       <h2>Cattributes</h2>
       <ul class="ml-5 cattributes>
